@@ -36,7 +36,7 @@ test('I can start a game', async () => {
     
     let buttonArr = await (await driver).findElements(By.id('start-game'));
     expect(buttonArr).toHaveLength(0);
-    await driver.sleep(2000);
+    // await driver.sleep(2000);
     
 });
 
@@ -51,28 +51,39 @@ test('X in top left square', async () => {
 //     expect(await (await driver).findElement(By.id('cell-1')).getText()).toBe('O');
 // });
 
-// test('X in the top right square', async () => {
-//     let topRight = await (await driver).findElement(By.id('cell-2'));
-//     await topRight.click();
-//     expect(await (await driver).findElement(By.id('cell-2')).getText()).toBe('X');
-//     await driver.sleep(2000);
-// });
+test('X in the top right square', async () => {
+    await startGame();
+    await checkSquare('cell-2', 'X');
 
-// test('X in the bottom right square', async () => {
-//     let bottomRight = await (await driver).findElement(By.id('cell-8'));
-//     await bottomRight.click();
-//     expect (await (await driver).findElement(By.id('cell-8')).getText()).toBe('X');
-//     await driver.sleep(2000);
-// });
+    // await driver.sleep(2000);
+});
 
-// test('Check if computer plays O', async () => {
-//     await startGame();
-//     await checkSquare('cell-0', "0");
+test('X in the bottom right square', async () => {
+    await startGame();
+    await checkSquare('cell-8', 'X');
 
-//     const pieceArr = driver.findElements(By.xpath(`//td[contains(@id="cell-") and text()="0"]`));
+    // await driver.sleep(2000);
+});
 
-//     console.log(pieceArr)
+test('Check if computer plays O', async () => {
+    await startGame();
+    await checkSquare('cell-0', "X");
+
+    // const pieceArr = await driver.findElements(By.xpath(`//td[contains(@id, "cell-") and text()="0"]`));
+    const pieceArr = await driver.findElements(By.xpath(`//td[contains(@id, 'cell-') and text()='O']`));
+  
+    console.log(pieceArr);
     
-//     expect(pieceArr).toHaveLength(1)
+    expect(pieceArr).toHaveLength(1);
 
-// });
+    // const pieceArr = await driver.findElements(By.xpath(`//td[contains(@id, 'cell-')]`))
+
+    // let things = []
+
+    // for (let item of pieceArr) {
+    //     things.push(await item.getText())
+    // }
+
+    // console.log(things)
+
+});
