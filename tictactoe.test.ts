@@ -21,9 +21,15 @@ const startGame = async () => {
     await button.click();
 };
 
-// const checkSquare = async (cell, play) => {
-//     let square = 
-// };
+const checkSquare = async (cell, play) => {
+    // console.log(cell)
+    // console.log(play)
+    let square = await (await driver).findElement(By.id(cell));
+    await square.click();
+    let text = await square.getText();
+    // console.log(text)
+    expect(text).toEqual(play);
+};
 
 test('I can start a game', async () => {
     await startGame();
@@ -36,15 +42,9 @@ test('I can start a game', async () => {
 
 test('X in top left square', async () => {
     await startGame();
-
-    let topLeft = await (await driver).findElement(By.id('cell-0'));
-    await topLeft.click();
-    let text = await topLeft.getText();
-    console.log(text);
-    // expect(text).toEqual('X');
-    // expect(await (await driver).findElement(By.id('cell-0')).getText()).toBe('X');
+    await checkSquare('cell-0', 'X')
     
-    await driver.sleep(2000);
+    // await driver.sleep(2000);
 });
 
 // test('O in top center square', async () => {
@@ -65,14 +65,14 @@ test('X in top left square', async () => {
 //     await driver.sleep(2000);
 // });
 
-test('Check if computer plays O', async () => {
-    await startGame();
-    await checkSquare('cell-0');
+// test('Check if computer plays O', async () => {
+//     await startGame();
+//     await checkSquare('cell-0', "0");
 
-    const pieceArr = driver.findElements(By.xpath(`//td[contains(@id="cell-") and text()="0"]`));
+//     const pieceArr = driver.findElements(By.xpath(`//td[contains(@id="cell-") and text()="0"]`));
 
-    console.log(pieceArr)
+//     console.log(pieceArr)
     
-    expect(pieceArr).toHaveLength(1)
+//     expect(pieceArr).toHaveLength(1)
 
-})
+// });
